@@ -1,0 +1,17 @@
+openapi: 3.0.0
+info:
+    title: Microsoft Defender XDR Secure Score
+    description: Retrieve all available Secure Score control status and overview from Microsoft Defender XDR.
+    version: "1.0.0"
+servers:
+    - url: https://graph.microsoft.com/v1.0
+paths:
+    /security/secureScores?$top=1:
+        get: 
+            operationId: List Secure Scores
+            summary: Retrieve all available Secure Score control status and overview from Defender XDR.The overview includes the Current Score, Max Score, Active User Count, Licensed User Count, and Vendor Information. The list of controls includes the Control Name, Category, Description, Implementation Percentage, Current Score, Affected Assets, Total Assets, and Implementation Status. 
+            responses:
+                200:
+                  description: Successful retrieval. 
+                401:
+                  description: Unsuccessful authentication.
