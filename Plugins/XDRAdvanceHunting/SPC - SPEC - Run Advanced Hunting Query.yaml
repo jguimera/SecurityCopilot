@@ -1,0 +1,68 @@
+openapi: 3.0.0
+info:
+    title: Microsoft Defender XDR Advanced Hunting
+    description: Queries a specified set of event, activity, or entity data supported by Microsoft Defender XDR to proactively look for specific threats in your environment using KQL via Microsoft Graph security.runHuntingQuery.
+    version: "1.0.0"
+servers:
+    - url: https://graph.microsoft.com/v1.0
+paths:
+    /security/runHuntingQuery:
+        post:
+            operationId: RunAdvancedHuntingQuery
+            summary: Run an Advanced Hunting KQL query
+            description: Execute a Kusto Query Language (KQL) hunting query across Microsoft Defender XDR data using Microsoft Graph.
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            required:
+                                - Query
+                            properties:
+                                Query:
+                                    type: string
+                                    description: The hunting query in Kusto Query Language (KQL).
+                                Timespan:
+                                    type: string
+                                    description: Optional ISO 8601 interval or duration specifying the time range to query.
+                        examples:
+                            default:
+                                value:
+                                    Query: DeviceProcessEvents | where InitiatingProcessFileName =~ "powershell.exe" | project Timestamp, FileName, InitiatingProcessFileName | order by Timestamp desc | limit 10
+            responses:
+                '200':
+                    description: Successful query execution.
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/HuntingQueryResults'
+                '401':
+                    description: Unauthorized
+                '403':
+                    description: Forbidden
+components:
+    schemas:
+        HuntingQueryResults:
+            type: object
+            properties:
+                "@odata.context":
+                    type: string
+                schema:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/HuntingColumn'
+                results:
+                    type: array
+                    items:
+                        type: object
+                        additionalProperties: true
+        HuntingColumn:
+            type: object
+            properties:
+                name:
+                    type: string
+                type:
+                    type: string
+
+
