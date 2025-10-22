@@ -1,0 +1,12 @@
+Descriptor:
+  Name: SCP - [Defender XDR]  Advanced Hunting Query
+  DisplayName: SCP - [Defender XDR] Advanced Hunting Query
+  Description: Run Advanced Hunting KQL queries in Microsoft Defender XDR via Microsoft Graph.
+  DescriptionForModel: Run Advanced Hunting KQL queries in Microsoft Defender XDR via Microsoft Graph.
+  Authorization:
+    Type: AADDelegated
+    EntraScopes: https://graph.microsoft.com/.default
+SkillGroups:
+  - Format: API
+    Settings:
+      OpenApiSpecUrl: https://gist.githubusercontent.com/jguimera/d6619a6bceb872817f97b075f7e30db1/raw/2a1228b95d844006d5e707e18dcd562dd3926360/SPC%2520-%2520SPEC%2520-%2520Run%2520Advanced%2520Hunting%2520Query.yaml
